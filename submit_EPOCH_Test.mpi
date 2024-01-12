@@ -1,0 +1,19 @@
+#!/bin/sh
+#SBATCH --ntasks=64
+#SBATCH --mem=62500
+#SBATCH --time=48:21:00
+#SBATCH --job-name=EPOCH_two_color
+#SBATCH --error=/work/fuchs/lsx249/EPOCH_two_color_44/job.%J.err
+#SBATCH --output=/work/fuchs/lsx249/EPOCH_two_color_44/job.%J.out
+
+module purge
+module load compiler/gcc/11
+module load openmpi/4.0
+
+#getvars /work/fuchs/lsx249/EPOCH_density/
+#echo /work/fuchs/lsx249/EPOCH_two_color_44/ | mpirun /work/fuchs/lsx249/epoch-4.9.0-unl/epoch2d/bin/epoch2d
+
+mail -s "Job EPOCH_two_color_44 Finished" slee83@huskers.unl.edu
+sbatch /work/fuchs/lsx249/EPOCH_two_color_44/post_proc_EPOCH_Test.slurm
+#sbatch /work/fuchs/lsx249/EPOCH_two_color_44/data_transfer_EPOCH_Test.slurm
+cgget -g memory /slurm/uid_${UID}/job_${SLURM_JOB_ID}
